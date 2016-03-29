@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LOGIN PAGE</title>
+</head>
+<body>
+<% if(message.length > 0) { %>
+    <div><font color="red"><%= message %></font></div>
+<% } %>
+<form action="/signup", method="post">
+    <div>
+        <label>Email</label>
+        <input type="text" name="email">
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="password">
+    </div>
+    <div>
+        <button type="submid">Signup</button>
+    </div>
+</form>
+</body>
+</html>
