@@ -3,14 +3,14 @@ module.exports = function(app, passport){
 	// HOME PAGE
 	//==========================
 	app.get('/', function(req, res){
-		res.render('index.ejs');
+		res.render('index');
 	})
 
 	//==========================
 	// LOGIN PAGE (show login form)
 	//==========================
 	app.get('/login', function(req, res){
-		res.render('login.ejs', { message: req.flash('loginMessage') });
+		res.render('login', { message: req.flash('loginMessage') });
 	})
 	app.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/profile',
@@ -22,7 +22,7 @@ module.exports = function(app, passport){
 	// SIGN UP PAGE (show sign up form)
 	//==========================
 	app.get('/signup', function(req, res){
-		res.render('signup.ejs', { message: req.flash('signupMessage') });
+		res.render('signup', { message: req.flash('signupMessage') });
 	})
 
 	// signup process
@@ -33,7 +33,7 @@ module.exports = function(app, passport){
 	}));
 
 	app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile.ejs', { user : req.user });
+    res.render('profile', { user : req.user });
   });
 }
 
