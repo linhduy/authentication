@@ -1,6 +1,9 @@
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy    = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 var User = require('../app/models/user');
+
+var configAuth = require('./auth');
 
 module.exports = function(passport){
 	passport.serializeUser(function(user, done){
@@ -44,6 +47,46 @@ module.exports = function(passport){
 		})
 	}
 
+	var facebookAuthFn = function(accessToken, refreshToken, profile, cb){
+		console.log('accessToken');
+		console.log(accessToken);
+		console.log('refreshToken');
+		console.log(refreshToken);
+		console.log('profile');
+		console.log(profile);
+
+		var checkUser = function(profile, cb){
+			User.findOne({'facebook.id': profile.id}, function(err, user){
+				if(err) return cb(err);
+				return cb(null, user || null);
+			})
+		};
+		
+		var createUser = function(token, profile, cb){
+			var newUser = new User();
+			newUser.facebook.id    = profile.id;
+			newUser.facebook.token = token;
+			newUser.facebook.name = profile.userName || profile.displayName || null;
+			newUser.facebook.email = profile.emails[0].value || null;
+			newUser.save(function(err){
+				if(err) throw err;
+				return cb(null, newUser);
+			})
+		};
+
+		process.nextTick(function(){
+			checkUser(profile, function(err, user){
+				if(err) return cb(err);
+				if(user) return cb(null, user);
+				createUser(accessToken, profile, function(err, user){
+					if(err) return cb(err);
+					if(!user) return cb('could not link to account');
+					return cb(null, user);
+				})
+			});
+		});
+	}
+
 	// create local signup handle
 	passport.use('local-signup', new LocalStrategy({
 		usernameField: 'email',
@@ -57,5 +100,13 @@ module.exports = function(passport){
 		passwordField: 'password',
 		passReqToCallback: true
 	}, loginFn));
+
+	// authenticate facebook
+	passport.use(new FacebookStrategy({
+		clientID: configAuth.facebookAuth.clientID,
+		clientSecret: configAuth.facebookAuth.clientSecret,
+		callbackURL: configAuth.facebookAuth.callbackURL,
+		profileFields: configAuth.facebookAuth.profileFields
+	}, facebookAuthFn));
 
 }

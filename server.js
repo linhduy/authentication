@@ -13,7 +13,14 @@ var session      = require('express-session');
 var configDB = require('./config/database.js'); // for connect database
 
 //Connect to my database
-// mongoose.connect(configDB.uri, configDB.options);
+mongoose.connect(configDB.uri, configDB.options, function (err) {
+	if (err) {
+		console.log("Could not connect to mongodb ----->", err);
+	}	
+	else {
+		console.log("mongodb is connected");
+	}
+});
 
 require('./config/passport')(passport);
 
