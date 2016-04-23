@@ -28,6 +28,7 @@ require('./config/passport')(passport);
 app.use(morgan('dev')); // log every request  to the console
 app.use(cookieParser()); // read cookies
 app.use(bodyParser()); //get body parameter
+app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs'); //set up ejs for templating
 
@@ -39,6 +40,7 @@ app.use(flash());
 
 //routes
 require('./app/routes.js')(app, passport);
+// require('./public/assets/js/fly.js')();
 
 //launch
 app.listen(port);

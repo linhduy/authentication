@@ -1,10 +1,10 @@
 var async = require("async");
 
-module.exports = function(app, passport){
+module.exports = function (app, passport){
 	//==========================
 	// HOME PAGE
 	//==========================
-	app.get('/', function(req, res){
+	app.get('/', function (req, res){
 		// async.auto({ 
 		// 	get_data: function(callback){ 
 		// 		console.log('in get_data');
@@ -33,11 +33,11 @@ module.exports = function(app, passport){
 	//==========================
 	// LOGIN PAGE (show login form)
 	//==========================
-	app.get('/login', function(req, res){
+	app.get('/login', function (req, res){
 		res.render('login', { message: req.flash('loginMessage') });
 	})
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/profile',
+		successRedirect: '/mainpage',
 		failureRedirect: '/login',
 		failureFlash: true
 	}));
@@ -45,7 +45,7 @@ module.exports = function(app, passport){
 	//==========================
 	// SIGN UP PAGE (show sign up form)
 	//==========================
-	app.get('/signup', function(req, res){
+	app.get('/signup', function (req, res){
 		res.render('signup', { message: req.flash('signupMessage') });
 	})
 
@@ -56,7 +56,7 @@ module.exports = function(app, passport){
 		failureFlash: true
 	}));
 
-	app.get('/profile', isLoggedIn, function(req, res) {
+	app.get('/profile', isLoggedIn, function (req, res) {
     res.render('profile', { user : req.user });
   });
 
@@ -71,6 +71,12 @@ module.exports = function(app, passport){
 			failureRedirect: '/login'
 		}));
 
+	//==========================
+	// MAIN PAGE
+	//==========================
+	app.get('/mainpage', isLoggedIn, function (req, res) {
+		res.render('mainpage', { user: req.user });
+	})
 }
 
 function isLoggedIn(req, res, next) {

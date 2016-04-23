@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<!--head>
     <title>LOGIN PAGE</title>
 </head>
 <body>
@@ -17,5 +17,45 @@
         <button type="submid">Login</button>
     </div>
 </form>
+</body>
+</html-->
+
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <style>
+        body        { padding-top:80px; }
+    </style>
+</head>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+<script src='assets/js/fly.js' type='text/javascript' var_1='true' var_2='true' var_3='false'></script>
+<!--script src='http://www.techrum.vn/js/fly/flies-obj.js' type='text/javascript' var_1='true' var_2='false' var_3='false'></script-->
+<script src="/public/assets/js/fly.js"></script>
+<body>
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-lock"></span> Node Authentication</h1>
+
+        <form action="/login", method="post" role="form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password</label>
+                <input type="password" name="password" class="form-control" id="pwd">
+            </div>
+            <div>
+                <button type="submid" class="btn-default">Login</button>
+            </div>
+            If you are guest, catch a <bold>GAY</bold> fly to access main page :D.
+        </form>
+    </div>
+
+</div>
 </body>
 </html>
