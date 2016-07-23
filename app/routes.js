@@ -1,4 +1,6 @@
 var async = require("async");
+var checkAdmin = require('./policies/checkAdmin.js');
+var policies = require('../config/policies.js');
 
 module.exports = function (app, passport){
 	//==========================

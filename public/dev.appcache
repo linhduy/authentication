@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# 2010-05-10:v1.1
+
+CACHE:
+# Index page
+/
+http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css
+http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css
+#login page
+/login
+./assets/js/fly.js
+
+# Require the user to be online.
+NETWORK:
+
+*
+
+# offline.html will be served in place of all other .html files
+#FALLBACK:
+#/ /offline.ejs
